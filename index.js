@@ -8,17 +8,24 @@ const showMoreButton = document.getElementById("show-more-button")
 let inputData = "";
 let page = 1;
 
-function searchImages(){
+async function searchImages(){
     inputData = searchInputEl.value;
     const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accesskey}`;
     console.log(url);
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    if(page === 1){
+        searchResulteEl.innerHTML = ""
+    }
+
+    const results = data.results
+
+    console.log(results);
 }
 
 formEl.addEventListener("submit", (event) => {
     event.preventDefault();
+    page = 1;
     searchImages();
 } )
 // messi
